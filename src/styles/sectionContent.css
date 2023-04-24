@@ -1,0 +1,36 @@
+.left-side {
+    width: calc(100% - 30%);
+    overflow-y: scroll;
+    padding-left: 20px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+.left-side::-webkit-scrollbar {
+    display: none;
+}
+ 
+
+.scroll-container {
+    display: block;
+    height: 100%;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  }
+
+  .scroll-container::-webkit-scrollbar {
+    display: none;
+}
+ 
+  .scroll-page {
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    margin-bottom: 2rem;
+  }
+
+  .container-height{
+    height: 88%;
+    border-radius: 1px;
+  }
