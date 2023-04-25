@@ -18,8 +18,8 @@ const SectionHeader = ({
 			item => item.id !== product.id
 		);
 
-		setTotal(total - product.precio * 1);
-		setCountProducts(countProducts - 1);
+		setTotal(total - product.precio * product.cantidad);
+		setCountProducts(countProducts - product.cantidad);
 		setAllProducts(results);
 	};
 
@@ -29,13 +29,17 @@ const SectionHeader = ({
 		setCountProducts(0);
 	};
 
+	const onAddPedidos = () => {
+		console.log(allProducts)
+	};
+
   return (
     <div className="top-section">
       <div className="user-info">
         <div className="user-img">
           <img alt="user" />
         </div>
-        <p className="user-name">Welcome👋</p>
+        <p className="user-name">Bienvenido</p>
 
       </div>
      
@@ -76,7 +80,7 @@ const SectionHeader = ({
 									<div className='cart-product' key={product.id}>
 										<div className='info-cart-product'>
 											<span className='cantidad-producto-carrito'>
-												{product.quantity}
+												{product.cantidad}
 											</span>
 											<p className='titulo-producto-carrito'>
 												{product.nombre}
@@ -108,10 +112,14 @@ const SectionHeader = ({
 								<h3>Total:</h3>
 								<span className='total-pagar'>${total}</span>
 							</div>
-
+							<button className='btn-add' onClick={onAddPedidos}>
+									Agregar pedido
+							</button>
 							<button className='btn-clear-all' onClick={onCleanCart}>
 								Vaciar Carrito
 							</button>
+
+							
 						</>
 					) : (
 						<p className='cart-empty'>El carrito está vacío</p>

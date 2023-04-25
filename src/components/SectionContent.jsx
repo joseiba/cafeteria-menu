@@ -32,20 +32,21 @@ const SectionContent = ({
     // eslint-disable-next-line
   }, []);
 
-  const onAddProduct = product => {
+  const onAddProduct = product => {    
 		if (allProducts.find(item => item.id === product.id)) {
 			const products = allProducts.map(item =>
 				item.id === product.id
-					? { ...item, quantity: 1 + 1 }
+					? { ...item, cantidad: item.cantidad + 1 }
 					: item
 			);
-			setTotal(total + product.precio * 1);
-			setCountProducts(countProducts + 1);
+      debugger
+			setTotal(total + product.precio *  product.cantidad);
+			setCountProducts(countProducts +  product.cantidad);
 			return setAllProducts([...products]);
 		}
 
-		setTotal(total + product.precio * 1);
-		setCountProducts(countProducts + 1);
+		setTotal(total + product.precio * product.cantidad);
+		setCountProducts(countProducts + product.cantidad);
 		setAllProducts([...allProducts, product]);
 	};
 
