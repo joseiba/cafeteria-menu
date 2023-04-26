@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from 'react';
+import axios from 'axios';
 
 import '../styles/sectionHeader.css'
 
@@ -11,7 +12,12 @@ const SectionHeader = ({
 	setCountProducts,
 	setTotal,
 }) => {
-  const [active, setActive] = useState(false);
+
+	const client = axios.create({
+		baseURL: "http://127.0.0.1:8000"
+	});
+
+  	const [active, setActive] = useState(false);
 
 	const onDeleteProduct = product => {
 		const results = allProducts.filter(
@@ -30,7 +36,36 @@ const SectionHeader = ({
 	};
 
 	const onAddPedidos = () => {
+
 		console.log(allProducts)
+
+		let products = []
+
+		allProducts.forEach(item => {
+			let id = item.id
+			let p = {itemid, 'item': item}
+			products.push(p);
+		});
+
+		console.log(products)
+
+
+		let jsonResquet = {
+			mesa : '1',
+			listProductos: products
+		};
+
+		console.log(jsonResquet)
+		client.post("/pedidos/",  {
+			mesa: 1,
+			lista_productos: products
+		})
+		.then(function(res) {
+		  console.log(res)  
+		})
+		.catch(function(error) {
+		  console.log(error)
+		});
 	};
 
   return (

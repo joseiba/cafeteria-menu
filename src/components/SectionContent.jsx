@@ -39,7 +39,6 @@ const SectionContent = ({
 					? { ...item, cantidad: item.cantidad + 1 }
 					: item
 			);
-      debugger
 			setTotal(total + product.precio *  product.cantidad);
 			setCountProducts(countProducts +  product.cantidad);
 			return setAllProducts([...products]);
