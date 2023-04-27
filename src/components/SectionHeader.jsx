@@ -18,6 +18,7 @@ const SectionHeader = ({
 	});
 
   	const [active, setActive] = useState(false);
+	const [mesa, setMesa] = useState(1);
 
 	const onDeleteProduct = product => {
 		const results = allProducts.filter(
@@ -33,35 +34,29 @@ const SectionHeader = ({
 		setAllProducts([]);
 		setTotal(0);
 		setCountProducts(0);
-	};
+		setMesa(1);
+	};	
 
 	const onAddPedidos = () => {
 
-		console.log(allProducts)
-
+		let totalPedidos = total
 		let products = []
 
 		allProducts.forEach(item => {
 			let id = item.id
-			let p = {itemid, 'item': item}
+			let p = {id, item}
 			products.push(p);
 		});
+	
 
-		console.log(products)
-
-
-		let jsonResquet = {
-			mesa : '1',
-			listProductos: products
-		};
-
-		console.log(jsonResquet)
 		client.post("/pedidos/",  {
-			mesa: 1,
+			mesa: mesa,
+			total: totalPedidos,		
 			lista_productos: products
 		})
 		.then(function(res) {
-		  console.log(res)  
+			onCleanCart();
+		  	console.log(res)  
 		})
 		.catch(function(error) {
 		  console.log(error)
@@ -103,13 +98,17 @@ const SectionHeader = ({
 					</div>
 				</div>
 
-				<div
+				<div					
 					className={`container-cart-products ${
 						active ? '' : 'hidden-cart'
 					}`}
-				>
+				>					
 					{allProducts.length ? (
 						<>
+							<label>
+							Mesa:
+							<input type="number" value={mesa} onChange={(e) => setMesa(e.target.value)} />
+						</label>
 							<div className='row-product'>
 								{allProducts.map(product => (
 									<div className='cart-product' key={product.id}>

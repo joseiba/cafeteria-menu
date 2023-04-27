@@ -8,7 +8,7 @@ import SectionHeader from './SectionHeader';
 import SectionContent from './SectionContent';
 
 function Container() {
-  const [allProducts, setAllProducts] = useState([]);
+  	const [allProducts, setAllProducts] = useState([]);
 	const [total, setTotal] = useState(0);
 	const [countProducts, setCountProducts] = useState(0);
   return (
