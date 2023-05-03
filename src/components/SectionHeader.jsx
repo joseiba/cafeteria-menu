@@ -1,6 +1,11 @@
 import React from "react";
 import { useState } from 'react';
 import axios from 'axios';
+import { ToastContainer} from 'react-toastify';
+
+import NotifyError from "./NotifyError";
+import NotifySuccess from "./NotifySuccess";
+
 
 import '../styles/sectionHeader.css'
 
@@ -53,18 +58,27 @@ const SectionHeader = ({
 			mesa: mesa,
 			total: totalPedidos,		
 			lista_productos: products
+		},
+		{
+			headers: {
+				Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
+				'Content-Type': 'application/json',
+			}
 		})
 		.then(function(res) {
-			onCleanCart();
+			onCleanCart();			
 		  	console.log(res)  
+			NotifySuccess()
 		})
 		.catch(function(error) {
 		  console.log(error)
+		  NotifyError()
 		});
 	};
 
   return (
-    <div className="top-section">
+	<>
+	 <div className="top-section">
       <div className="user-info">
         <div className="user-img">
           <img alt="user" />
@@ -161,6 +175,10 @@ const SectionHeader = ({
 				</div>
 			</div>
     </div>
+	<ToastContainer/> 
+	</>
+   
+	
   );
 }
 

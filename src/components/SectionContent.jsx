@@ -1,7 +1,9 @@
 import {Card, CardGroup, Col, Row, Button} from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ToastContainer} from 'react-toastify';
 
+import NotifySuccess from "./NotifySuccess";
 import '../styles/sectionContent.css'
 
 const SectionContent = ({
@@ -21,7 +23,13 @@ const SectionContent = ({
   
 
   useEffect(() => {
-    client.get("/productos/")
+    client.get("/productos/",
+    {
+			headers: {
+				Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
+				'Content-Type': 'application/json',
+			}
+		})
     .then(function(res) {
       setListProductos(res.data);
       console.log(listProductos)  
@@ -47,6 +55,7 @@ const SectionContent = ({
 		setTotal(total + product.precio * product.cantidad);
 		setCountProducts(countProducts + product.cantidad);
 		setAllProducts([...allProducts, product]);
+    NotifySuccess();
 	};
 
 
@@ -76,7 +85,9 @@ const SectionContent = ({
       
       </CardGroup>
       </div>    
+      <ToastContainer/> 
     </div>
+    
   );
 }
 
