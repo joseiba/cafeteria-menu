@@ -28,11 +28,9 @@ const Home = ({ onLogout, userId }) => {
 
   return (
     <>
-      {/* <button onClick={logoutHandler}>Logout</button> */}
-      {user && <>
-        {/* <h1>Bienvenido {user.username}!</h1>
-        <p>{user.group_name}</p> */}
+      {user && <>      
         {content}
+        <button onClick={logoutHandler}>Logout</button>
       </>}
     </>
   )

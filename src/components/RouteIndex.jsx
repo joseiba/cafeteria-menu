@@ -2,6 +2,11 @@ import '../App.css';
 import Container from './Dashboard';
 import Sidebar from './SideBar';
 import AddProducts from './AddProducts';
+import Pedidos from './Pedidos';
+import Usuarios from './Usuarios';
+import AddUser from './AddUser';
+import EditUser from './EditUser';
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function RouteIndex() {
@@ -13,9 +18,10 @@ function RouteIndex() {
           <Route >
             <Route exact path="/index" element={<Container />} />
             <Route exact path="/agregarProducto" element={<AddProducts />} />
-            {/* <Route path="blogs" element={<Blogs />} />
-            <Route path="contact" element={<Contact />} />
-            <Route path="*" element={<NoPage />} /> */}
+            <Route exact path="/pedidos" element={<Pedidos />} />
+            <Route exact path="/usuarios" element={<Usuarios />} />
+            <Route exact path="/agregarUsuario" element={<AddUser />} />
+            <Route exact path="/editarUsuario" element={<EditUser />} />                      
           </Route>
         </Routes>
       </BrowserRouter>
