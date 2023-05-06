@@ -23,21 +23,25 @@ const AddUser = () =>  {
 		client.post("/users/",  {
 			username: userName,
 			password: pass,
-            password2: pass,
-            first_name: userFistName,
-            last_name: userLastName            		
+      password2: pass,
+      first_name: userFistName,
+      last_name: userLastName            		
 		}, 
      {headers: {
       Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('accessToken'))}`,
       'Content-Type': 'application/json',
       }})
 		.then(function(res) {
-            console.log(res)  			
-            NotifySuccess();
+        console.log(res)
+        setFirtsName('');
+        setLastName('');
+        setUserName('');
+        setPass('');
+        NotifySuccess();
 		})
 		.catch(function(error) {
 		    console.log(error)
-            NotifyError();
+        NotifyError();
 		});
 	};  
   return (  

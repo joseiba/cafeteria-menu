@@ -9,8 +9,8 @@ function App() {
   const [userId, setUserId] = useState(null)
 
   useEffect(() => {
-    const token = window.localStorage.getItem('accessToken') == "undefined" ? '' : window.localStorage.getItem('accessToken') ;
-    if (token){
+    const token = window.localStorage.getItem('accessToken') == "undefined" ? '' : window.localStorage.getItem('accessToken');
+    if (token) {
       setUserId(jwtDecode(JSON.parse(token)).user_id)
     }
   }, [])
@@ -20,15 +20,10 @@ function App() {
     setUserId(userId)
   }
 
-  const onLogoutHandler = () => {
-    setUserId(null)
-    window.localStorage.removeItem('accessToken')
-  }
-
   return (
     <>
       {userId ? (
-        <Home onLogout={onLogoutHandler} userId={userId} />
+        <Home  userId={userId} setUserId={setUserId}/>
       ) : (
         <Login onLogin={onLoginHandler} />
       )}

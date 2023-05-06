@@ -3,7 +3,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 function NotifySuccess() {
-    toast.success('Se ha agregado correctamente', {
+    toast.success('Operacion exitosa', {
       position: "top-center",
       autoClose: 3000,
       hideProgressBar: false,

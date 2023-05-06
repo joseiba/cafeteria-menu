@@ -9,7 +9,16 @@ import {
 } from 'cdbreact';
 import { NavLink } from 'react-router-dom';
 
-const Sidebar = () => {
+const Sidebar = ({setUserId}) => {
+  const role = localStorage.getItem("role")
+  const roleAdmin = role == "admin" ? true : false;
+  const roleCocinero = role == "cocinero" ? true : false;
+  const roleRecepcionista = role == "recepcionista" ? true : false;
+  const handleLogout = () => {
+    window.localStorage.removeItem('role')
+    window.localStorage.removeItem('accessToken')
+    setUserId(null)
+  }
   return (
     <div
       style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}
@@ -21,36 +30,60 @@ const Sidebar = () => {
             className="text-decoration-none"
             style={{ color: 'inherit' }}
           >
-            Sidebar
+            CoffeeTime
           </a>
         </CDBSidebarHeader>
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-            <NavLink exact to="/index" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="columns">Dashboard</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/agregarProducto" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="table">Agregar Productos</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/pedidos" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="user">Pedidos</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/usuarios" activeClassName="activeClicked">
+
+            {roleAdmin ? (<>
+              <NavLink exact to="/" activeClassName="activeClicked">
+                <CDBSidebarMenuItem icon="list">Dashboard</CDBSidebarMenuItem>
+              </NavLink>
+              <NavLink to="/pedidos" activeClassName="activeClicked">
+                <CDBSidebarMenuItem icon="cart-plus">Pedidos</CDBSidebarMenuItem>
+              </NavLink>
+
+            </>)
+              :
+              (roleRecepcionista && <>
+                <NavLink exact to="/index" activeClassName="activeClicked">
+                  <CDBSidebarMenuItem icon="list">Dashboard</CDBSidebarMenuItem>
+                </NavLink>
+                <NavLink to="/pedidos" activeClassName="activeClicked">
+                  <CDBSidebarMenuItem icon="cart-plus">Pedidos</CDBSidebarMenuItem>
+                </NavLink>
+
+              </>)
+
+            }
+
+            {roleAdmin ? (<>
+              <NavLink to="/cocina" activeClassName="activeClicked">
+                <CDBSidebarMenuItem icon="box">Cocina</CDBSidebarMenuItem>
+              </NavLink>
+            </>)
+              :
+              (roleCocinero && <>
+                <NavLink to="/cocina" activeClassName="activeClicked">
+                  <CDBSidebarMenuItem icon="box">Cocina</CDBSidebarMenuItem>
+                </NavLink>
+              </>)
+            }
+
+            {roleAdmin && <>
+              <NavLink to="/agregarProducto" activeClassName="activeClicked">
+                <CDBSidebarMenuItem icon="plus">Agregar Productos</CDBSidebarMenuItem>
+              </NavLink>
+            </>}
+
+            {/* <NavLink exact to="/usuarios" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="chart-line">
                 Usuarios
               </CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink
-              exact
-              to="/hero404"
-              target="_blank"
-              activeClassName="activeClicked"
-            >
-              <CDBSidebarMenuItem icon="exclamation-circle">
-                404 page
-              </CDBSidebarMenuItem>
-            </NavLink>
+            </NavLink>           */}
+
           </CDBSidebarMenu>
         </CDBSidebarContent>
 
@@ -60,7 +93,7 @@ const Sidebar = () => {
               padding: '20px 5px',
             }}
           >
-            Sidebar Footer
+            <button className='btn btn-primary' onClick={handleLogout}>Logout</button>
           </div>
         </CDBSidebarFooter>
       </CDBSidebar>

@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 import RouteIndex from './RouteIndex'
 
-const Home = ({ onLogout, userId }) => {
-  const [user, setUser] = useState()
-
+const Home = ({ userId, setUserId}) => {
+  const [user, setUser] = useState()  
   useEffect(() => {
     fetch('http://localhost:8000/users/' + userId, {
       method: 'GET' /* or POST/PUT/PATCH/DELETE */,
@@ -17,20 +16,16 @@ const Home = ({ onLogout, userId }) => {
         setUser(userData)
       })
   }, [])
+  
+  const role = user ? localStorage.setItem('role',user.group_name ) : localStorage.setItem('role', '' )
 
-  const logoutHandler = () => {
-    onLogout()
-  }
-
-  const role = user ? user.group_name : null
-
-  const content = role && role === 'recepcionista' ? <RouteIndex /> : <p>Home Page</p>
+  const content = <RouteIndex setUserId={setUserId}/>
 
   return (
     <>
-      {user && <>      
+      {user && <>
         {content}
-        <button onClick={logoutHandler}>Logout</button>
+        {/* <button onClick={logoutHandler}>Logout</button> */}
       </>}
     </>
   )

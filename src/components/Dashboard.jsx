@@ -7,7 +7,7 @@ import '../styles/container.css'
 import SectionHeader from './SectionHeader';
 import SectionContent from './SectionContent';
 
-function Container() {
+function Container(role) {
   	const [allProducts, setAllProducts] = useState([]);
 	const [total, setTotal] = useState(0);
 	const [countProducts, setCountProducts] = useState(0);
